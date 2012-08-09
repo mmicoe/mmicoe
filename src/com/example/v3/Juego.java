@@ -15,7 +15,9 @@ public class Juego extends Scene {
 	    mCamera = BaseActivity.getSharedInstance().mCamera;
 	    perso1 = Personaje.getSharedInstance();
 	    attachChild(perso1.sprite);
-	    
+	    registerTouchArea(perso1.sprite);
+		setTouchAreaBindingOnActionDownEnabled(true);
+		
 	   //ship = Figura.getSharedInstance();
 	   // attachChild(ship.sprite);
 	}

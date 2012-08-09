@@ -9,6 +9,7 @@ import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.sprite.AnimatedSprite;
 import org.andengine.entity.sprite.Sprite;
+import org.andengine.input.touch.TouchEvent;
 import org.andengine.opengl.texture.ITexture;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlas;
@@ -66,7 +67,14 @@ public class Personaje extends Scene {
 		
 		mCamera = BaseActivity.getSharedInstance().mCamera;
 		//sprite= new Sprite(0, 0, this.mFaceTextureRegion, BaseActivity.getSharedInstance().getVertexBufferObjectManager());
-		sprite= new Sprite(0, 0, player, BaseActivity.getSharedInstance().getVertexBufferObjectManager());
+		sprite= new Sprite(0, 0, player, BaseActivity.getSharedInstance().getVertexBufferObjectManager()){
+		//Movimiento Touch
+			@Override
+		public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
+			this.setPosition(pSceneTouchEvent.getX() - this.getWidth() / 2, pSceneTouchEvent.getY() - this.getHeight() / 2);
+			return true;
+		}
+	};
 		sprite.setPosition(mCamera.getWidth() / 2 - sprite.getWidth() / 2,mCamera.getHeight() - sprite.getHeight() - 10);
 
     }
