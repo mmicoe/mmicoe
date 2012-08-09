@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="app_name">V3</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_1">Mauro</string>
+    <string name="title_2">Invasores</string>
+    <string name="start">EMPIEZA !!!</string>
+    
+</resources>
