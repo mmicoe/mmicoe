@@ -47,6 +47,9 @@ public class Personaje extends Scene {
 	Camera mCamera;
 	public AnimatedSprite sprite;
 	
+	private float b_touchX;
+    private float b_touchY;
+    
 	private ITexture mTexture;
 	private ITextureRegion mFaceTextureRegion;
 	
@@ -64,8 +67,6 @@ public class Personaje extends Scene {
 	    
 	private Personaje() {
 	   
-		float centerX;
-		float centerY;
 		
 		
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("img/");
@@ -81,21 +82,30 @@ public class Personaje extends Scene {
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
 				 
-			
-                sprite.setPosition(pSceneTouchEvent.getX() - this.getWidth() / 2, pSceneTouchEvent.getY() - this.getHeight() / 2);
+				b_touchX = sprite.getX() + (sprite.getWidth() / 2);
+			    b_touchY = sprite.getY() + (sprite.getHeight() / 2);
                 
-                
-                sprite.animate(new long[]{200, 200, 200}, 0, 2, true);
-                
+			    float touchX = pSceneTouchEvent.getX();
+                float touchY = pSceneTouchEvent.getY();
 
-                //Rota sobre sí mismo
-                if(pSceneTouchEvent.isActionMove()){
-                sprite.setRotation(sprite.getRotation()+90);}
-                  
+                float x_length = touchX - b_touchX;
+                float y_length = touchY - b_touchY;
                 
+                sprite.setRotation(MathUtils.radToDeg((float)Math.atan2(y_length, x_length)));
+                
+				sprite.setPosition(pSceneTouchEvent.getX() - this.getWidth() / 2, pSceneTouchEvent.getY() - this.getHeight() / 2); 
+                sprite.animate(new long[]{200, 200, 200}, 3, 5, true);
+                
+               
+                /* Rota sobre sí mismo
+                if(pSceneTouchEvent.isActionMove()){
+                sprite.setRotation(sprite.getRotation()+90);} */
+                  
+              
 				return true;
 		
 		}
+			
 		};
 			
 		
