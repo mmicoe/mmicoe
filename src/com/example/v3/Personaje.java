@@ -70,14 +70,13 @@ public class Personaje extends Scene {
 		
 		
 		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("img/");
-		mBitmapTextureAtlas = new BitmapTextureAtlas(BaseActivity.getSharedInstance().getTextureManager(), 128, 128);
+		mBitmapTextureAtlas = new BitmapTextureAtlas(BaseActivity.getSharedInstance().getTextureManager(), 72, 128);
 		mPlayerTextureRegion = BitmapTextureAtlasTextureRegionFactory.createTiledFromAsset(mBitmapTextureAtlas,BaseActivity.getSharedInstance().getBaseContext(), "enemy.png", 0, 0, 3, 4);
 		//mGrassBackground = new RepeatingSpriteBackground(BaseActivity.getSharedInstance().CAMERA_WIDTH,BaseActivity.getSharedInstance().CAMERA_HEIGHT,BaseActivity.getSharedInstance().getTextureManager(), AssetBitmapTextureAtlasSource.create(BaseActivity.getSharedInstance().getAssets(), "gfx/background_grass.png"),BaseActivity.getSharedInstance().getVertexBufferObjectManager());
 		mBitmapTextureAtlas.load();
 		
 		
 		sprite = new AnimatedSprite(100, 100, 48, 64, mPlayerTextureRegion, BaseActivity.getSharedInstance().getVertexBufferObjectManager()){
-			
 			//Movimiento Touch
 			@Override
 			public boolean onAreaTouched(final TouchEvent pSceneTouchEvent, final float pTouchAreaLocalX, final float pTouchAreaLocalY) {
@@ -94,9 +93,11 @@ public class Personaje extends Scene {
                 sprite.setRotation(MathUtils.radToDeg((float)Math.atan2(y_length, x_length)));
                 
 				sprite.setPosition(pSceneTouchEvent.getX() - this.getWidth() / 2, pSceneTouchEvent.getY() - this.getHeight() / 2); 
-                sprite.animate(new long[]{200, 200, 200}, 3, 5, true);
-                
+				
                
+                sprite.animate(new long[]{200, 200, 200}, 3, 5, true);
+                    
+                
                 /* Rota sobre sí mismo
                 if(pSceneTouchEvent.isActionMove()){
                 sprite.setRotation(sprite.getRotation()+90);} */

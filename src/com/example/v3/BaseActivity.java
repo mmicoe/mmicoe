@@ -38,6 +38,9 @@ public class BaseActivity extends SimpleBaseGameActivity {
 	//A reference to the current scene
 	public Scene mCurrentScene;
 	public static BaseActivity instance;
+	
+	public Engine mEngine;
+	
 	 
 	@Override
 	public EngineOptions onCreateEngineOptions() {
@@ -57,13 +60,15 @@ public class BaseActivity extends SimpleBaseGameActivity {
 		    mFont = FontFactory.create(this.getFontManager(),this.getTextureManager(), 256, 256,Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32);
 		    mFont.load();
 		    
+		    
 	}
 	
 	@Override
 	protected Scene onCreateScene() {
 		// TODO Auto-generated method stub
 	
-		    mEngine.registerUpdateHandler(new FPSLogger());
+		   mEngine.registerUpdateHandler(new FPSLogger());
+		    
 		    mCurrentScene = new Presentacion();
 		    //Comentado porque ya modifico el Background en la clase Presentacion
 		    //mCurrentScene.setBackground(new Background(0.09804f, 0.7274f, 0.8f));
