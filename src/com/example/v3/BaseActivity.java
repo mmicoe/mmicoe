@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.view.KeyEvent;
 import android.view.Menu;
 
+import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.camera.Camera;
 import org.andengine.engine.options.EngineOptions;
 import org.andengine.engine.options.ScreenOrientation;
@@ -29,27 +30,27 @@ import org.andengine.engine.Engine;
 
 public class BaseActivity extends SimpleBaseGameActivity {
 	
-	static final int CAMERA_WIDTH = 800;
-	static final int CAMERA_HEIGHT = 480;
+	static final int CAMERA_WIDTH = 480;
+	static final int CAMERA_HEIGHT = 320;
 
 	public Font mFont;
 	public Camera mCamera;
-
+	
 	//A reference to the current scene
 	public Scene mCurrentScene;
 	public static BaseActivity instance;
 	
 	public Engine mEngine;
-	
 	 
 	@Override
 	public EngineOptions onCreateEngineOptions() {
 		// TODO Auto-generated method stub
 		
+		
 		    instance = this;
-		    mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
-
-		    return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT), mCamera);
+		    //mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+		    this.mCamera = new Camera(0, 0, CAMERA_WIDTH, CAMERA_HEIGHT);
+		    return new EngineOptions(true, ScreenOrientation.LANDSCAPE_FIXED, new RatioResolutionPolicy(CAMERA_WIDTH, CAMERA_HEIGHT),  this.mCamera);
 	   
 	}
 	
@@ -57,6 +58,8 @@ public class BaseActivity extends SimpleBaseGameActivity {
 	protected void onCreateResources() {
 		// TODO Auto-generated method stub
 	
+		BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("txm/");
+		
 		    mFont = FontFactory.create(this.getFontManager(),this.getTextureManager(), 256, 256,Typeface.create(Typeface.DEFAULT, Typeface.BOLD), 32);
 		    mFont.load();
 		    
@@ -67,7 +70,7 @@ public class BaseActivity extends SimpleBaseGameActivity {
 	protected Scene onCreateScene() {
 		// TODO Auto-generated method stub
 	
-		   mEngine.registerUpdateHandler(new FPSLogger());
+		   //mEngine.registerUpdateHandler(new FPSLogger());
 		    
 		    mCurrentScene = new Presentacion();
 		    //Comentado porque ya modifico el Background en la clase Presentacion

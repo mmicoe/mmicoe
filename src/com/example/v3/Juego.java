@@ -1,6 +1,10 @@
 package com.example.v3;
 
+import org.andengine.engine.camera.BoundCamera;
 import org.andengine.engine.camera.Camera;
+import org.andengine.engine.handler.IUpdateHandler;
+import org.andengine.entity.IEntity;
+import org.andengine.entity.primitive.Rectangle;
 import org.andengine.entity.scene.Scene;
 import org.andengine.entity.scene.background.Background;
 import org.andengine.entity.util.FPSLogger;
@@ -14,6 +18,7 @@ import org.andengine.extension.tmx.TMXLoader.ITMXTilePropertiesListener;
 import org.andengine.extension.tmx.util.exception.TMXLoadException;
 import org.andengine.opengl.texture.TextureOptions;
 import org.andengine.opengl.texture.atlas.bitmap.BitmapTextureAtlasTextureRegionFactory;
+import org.andengine.util.Constants;
 import org.andengine.util.debug.Debug;
 
 import android.widget.Toast;
@@ -21,47 +26,29 @@ import android.widget.Toast;
 
 public class Juego extends Scene {
      
-	//public Figura ship;
 	public Personaje perso1;
 	Camera mCamera;
-	
-	//Mapa Tiled
-	private TMXTiledMap mTMXTiledMap;
-	BaseActivity activity;
 
+	public Paisaje level1;
+	
 	public Juego() {
-	    setBackground(new Background(0.09804f, 0.6274f, 0.8784f));
-	    mCamera = BaseActivity.getSharedInstance().mCamera;
-	    perso1 = Personaje.getSharedInstance();
+		
+		setBackground(new Background(0.09804f, 0.6274f, 0.8784f));
+	    //mCamera = BaseActivity.getSharedInstance().mCamera;
 	    
-	    BitmapTextureAtlasTextureRegionFactory.setAssetBasePath("img/");
+	    //perso1 = Personaje.getSharedInstance();
+	    perso1 = new Personaje();
 	    
-	    activity.mEngine.registerUpdateHandler(new FPSLogger());
-	    //Cargamos el tileMap
-	    try {
-			final TMXLoader tmxLoader = new TMXLoader(BaseActivity.getSharedInstance().getAssets(),activity.mEngine.getTextureManager(), TextureOptions.BILINEAR_PREMULTIPLYALPHA, BaseActivity.getSharedInstance().getVertexBufferObjectManager(), new ITMXTilePropertiesListener() {
-				@Override
-				public void onTMXTileWithPropertiesCreated(final TMXTiledMap pTMXTiledMap, final TMXLayer pTMXLayer, final TMXTile pTMXTile, final TMXProperties<TMXTileProperty> pTMXTileProperties) {
-					/* We are going to count the tiles that have the property "cactus=true" set. */
-					
-				}
-			});
-			mTMXTiledMap = tmxLoader.loadFromAsset("txm/bosque.tmx");
-	
-		} catch (final TMXLoadException e) {
-			Debug.e(e);
-		}
-
-	    final TMXLayer tmxLayer = this.mTMXTiledMap.getTMXLayers().get(0);
-		attachChild(tmxLayer);
-	    
+	    level1 = Paisaje.getSharedInstance();
+	        
+	    attachChild(level1);
 	    attachChild(perso1.sprite);
 	    registerTouchArea(perso1.sprite);
-		setTouchAreaBindingOnActionDownEnabled(true);
-		
-	   //ship = Figura.getSharedInstance();
-	   // attachChild(ship.sprite);
-	}
+	 
+	    
+	    level1.setTouchAreaBindingOnActionDownEnabled(true);
+	    level1.setTouchAreaBindingOnActionMoveEnabled(true);
 
-	
+	}
+	 
 }

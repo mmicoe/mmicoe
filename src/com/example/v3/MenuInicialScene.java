@@ -14,6 +14,7 @@ public class MenuInicialScene extends MenuScene implements IOnMenuItemClickListe
 	public MenuInicialScene(){
 		
 		super(BaseActivity.getSharedInstance().mCamera);
+		
 		activity = BaseActivity.getSharedInstance();
 
 		setBackground(new Background(0.09804f, 0.6274f, 0.8784f));
